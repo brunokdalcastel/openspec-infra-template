@@ -1,0 +1,35 @@
+# OpenSpec Configuration — Infrastructure (Security-First)
+schema: spec-driven
+
+rules:
+  # === SECURITY (non-negotiable) ===
+  - "NEVER hardcode credentials, keys, connection strings, or tokens in source code"
+  - "ALWAYS use remote backend for Terraform state (Azure Storage, S3, etc.) — NEVER local state"
+  - "ALWAYS enable state locking for Terraform (prevent concurrent modifications)"
+  - "NEVER commit .tfstate or .tfvars with secrets to Git"
+  - "ALWAYS use vault for secrets (Key Vault, HashiCorp Vault, etc.) — NEVER plaintext"
+  - "ALWAYS follow least privilege for IAM roles and service accounts"
+  - "ALWAYS require MFA for administrative access to production"
+  - "ALWAYS use TLS 1.2+ for inter-service communication"
+  - "NEVER create firewall rules with 'any any allow' or 0.0.0.0/0 without justification"
+  - "ALWAYS pin versions for dependencies (Terraform providers, Ansible roles, base images)"
+
+  # === IaC QUALITY ===
+  - "ALWAYS follow standard module structure (main.tf, variables.tf, outputs.tf, README.md)"
+  - "ALWAYS add descriptions and type constraints to all Terraform variables"
+  - "ALWAYS run terraform fmt, terraform validate, and tflint before committing"
+  - "ALWAYS run security scan (tfsec/checkov) before applying"
+  - "ALWAYS test changes in staging/dev before production"
+
+  # === AI GUARDRAILS ===
+  - "When generating Terraform: ALWAYS use remote backend, modules, and proper state management"
+  - "When generating Ansible: ALWAYS ensure idempotency and use ansible-vault for secrets"
+  - "When generating pipelines: ALWAYS include lint, validate, security scan, plan stages"
+  - "When generating network configs: ALWAYS follow segmentation and least-access principles"
+  - "When generating firewall rules: ALWAYS be specific (source/dest/port) — NEVER use wildcards"
+  - "ALWAYS explain changes in simple terms — the user is an infrastructure professional"
+  - "ALWAYS write explanations in Portuguese (pt-BR)"
+
+context:
+  - AI-INSTRUCTIONS.md
+  - openspec/project.md
